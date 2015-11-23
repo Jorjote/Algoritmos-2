@@ -83,7 +83,7 @@ class diccHash { // REQUIERE QUE A SEA COMPATIBLE CON LA OPERACION % (RESTO).
   private:
   	typename Lista< typename diccHash<A,B>::tupla >::Iterador listaActual; //el campo listaActual del itDiccHash es un iterador modificable de Lista.
     Nat posicionActual;
-     Arreglo<Lista< typename diccHash<A,B>::tupla > > arr; //el campo arr del itDiccHash es un arreglo de listas de tuplas(A,B).
+     Arreglo<Lista< typename diccHash<A,B>::tupla > > *arr; //el campo arr del itDiccHash es un arreglo de listas de tuplas(A,B).
     Nat contador;
     friend typename diccHash<A,B>::Iterador diccHash<A,B>::CrearIt(const A& clave); // retorna iterador y se llama crearIt y pertenece a diccHash,no a iterador,osea el this es de diccHash.
     friend typename diccHash<A,B>::Iterador diccHash<A,B>::CrearIt(); // sin parametros.
@@ -230,18 +230,18 @@ return Iterador(*this); // 1 solo parametro.
 template <typename A,typename B>
 diccHash<A,B>::Iterador::Iterador(diccHash<A,B>& d)//:listaActual(), posicionActual(), arr() ,contador()  // constructor del iterador.
 {
-this->arr = d.tabla;
+this->arr = &(d.tabla);
 this->posicionActual = 0;
 this->contador = d.cardinal;
 Lista<tupla> listaVacia;
 this->listaActual= listaVacia.CrearIt();
-  while(  (this->posicionActual<this->arr.Tamanho()) && this->arr[this->posicionActual].EsVacia()   )
+  while(  (this->posicionActual<this->arr->Tamanho()) && (*arr)[this->posicionActual].EsVacia()   )
   {
   this->posicionActual= this->posicionActual+1;
   }
-  if(this->posicionActual<this->arr.Tamanho())
+  if(this->posicionActual<this->arr->Tamanho())
   {
-  this->listaActual=  this->arr[this->posicionActual].CrearIt();
+  this->listaActual=  ((*arr)[this->posicionActual]).CrearIt();
   }else
   {
     this->posicionActual=0;
@@ -252,7 +252,7 @@ this->listaActual= listaVacia.CrearIt();
 template <typename A,typename B>
 diccHash<A,B>::Iterador::Iterador(diccHash<A,B>& d,const A& clave)// iterador desde la clave clave
 {
-        this->arr = d.tabla;
+        arr = &(d.tabla);
 	    this->posicionActual = d.FuncionDeHash(clave);
 	    this->listaActual= d.tabla[this->posicionActual].CrearIt();
 	    //this->contador = d.tabla.Tamanho(); COMO ESTABA ANTES
@@ -269,7 +269,7 @@ template <typename A,typename B>
 diccHash<A,B>::Iterador::Iterador()// iterador por defecto.
 {
       Arreglo<Lista< typename diccHash<A,B>::tupla > > arrVacio;
-      this->arr = arrVacio;
+      (*arr) = arrVacio;
       this->posicionActual = 0;
        Lista<  diccHash<A,B>::tupla > ListaVaciaDeHash;
        typename Lista<  diccHash<A,B>::tupla >::Iterador itListaVaciaDeHash = ListaVaciaDeHash.CrearIt();
@@ -302,19 +302,19 @@ this->contador = this->contador-1; // 1 ELEMENTO MENOS A ITERAR.
  if(!(this->listaActual).HaySiguiente()) // si no hay siguiente
   {
      this->posicionActual=this->posicionActual+1; // siguiente posicion actual.
-      if(this->posicionActual==this->arr.Tamanho())
+      if(this->posicionActual==this->arr->Tamanho())
       {
        this->posicionActual=0; // si me pase del arr,busco desde la posicion 0.
       }
-      while(  this->arr[this->posicionActual].EsVacia() )
+      while(  this->(*arr)[this->posicionActual].EsVacia() )
        {
         this->posicionActual=this->posicionActual+1; // siguiente posicion actual.
-           if(this->posicionActual>=this->arr.Tamanho())
+           if(this->posicionActual>=this->arr->Tamanho())
            {
            this->posicionActual=0; // si me pase del arr,busco desde la posicion 0.
            }
        } // Qc: en posicionActual  hay una lista no vacia.
-       this->listaActual = this->arr[this->posicionActual].CrearIt();
+       this->listaActual = this->(*arr)[this->posicionActual].CrearIt();
   } // si hay siguiente, se ignora el if y todo anda piola gato revolver pillo gatillo.
 }
 
