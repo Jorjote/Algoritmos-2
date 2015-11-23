@@ -306,7 +306,7 @@ this->contador = this->contador-1; // 1 ELEMENTO MENOS A ITERAR.
       {
        this->posicionActual=0; // si me pase del arr,busco desde la posicion 0.
       }
-      while(  this->(*arr)[this->posicionActual].EsVacia() )
+      while(  (*arr)[this->posicionActual].EsVacia() )
        {
         this->posicionActual=this->posicionActual+1; // siguiente posicion actual.
            if(this->posicionActual>=this->arr->Tamanho())
@@ -314,7 +314,7 @@ this->contador = this->contador-1; // 1 ELEMENTO MENOS A ITERAR.
            this->posicionActual=0; // si me pase del arr,busco desde la posicion 0.
            }
        } // Qc: en posicionActual  hay una lista no vacia.
-       this->listaActual = this->(*arr)[this->posicionActual].CrearIt();
+       this->listaActual = (*arr)[this->posicionActual].CrearIt();
   } // si hay siguiente, se ignora el if y todo anda piola gato revolver pillo gatillo.
 }
 
