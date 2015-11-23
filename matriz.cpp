@@ -59,14 +59,14 @@ template<typename T>
 T& diccMatriz<T>::Obtener(Posicion P)
 {
     assert(enRango(P));
-    return (Matriz[P.Y()-1])[P.X()-1];
+    return &((Matriz[P.Y()-1])[P.X()-1]);
 }
 
 template<typename T>
 T& diccMatriz<T>::Obtener(Nat c, Nat f)
 {
     assert(enRango(c,f));
-    return (Matriz[c])[f];
+    return &((Matriz[c])[f]);
 }
 
 template<typename T>
