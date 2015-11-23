@@ -587,7 +587,6 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
                 {
                     //diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(posActual).datosAgente;
                     //datosVec.SiguienteSignificado().Sanciones++;
-
                     //grilla.Obtener(posActual).datosAgente.SiguienteSignificado().Sanciones++;
                     Agente ac= grilla.Obtener(posActual).placa;
                     datosAgentes.Obtener(ac).Sanciones ++;
@@ -662,10 +661,11 @@ void campusSeguro::actualizarVecinos(Posicion p)
  while( itVecinos.HaySiguiente() )
  {
     Posicion vec1 = itVecinos.Siguiente();
-    Conj<Posicion> vecinosDeVecino = DameCampus().Vecinos(vec1);
+  /*  Conj<Posicion> vecinosDeVecino = DameCampus().Vecinos(vec1);
     Conj<Posicion>::const_Iterador itVecinosVec = vecinosDeVecino.CrearIt();
     while( itVecinosVec.HaySiguiente() )
     {
+*/
         if( posConvertibleAEstudiante(vec1,_campus) && esHippie(vec1) )
         {
             Nombre name = grilla.Obtener(vec1).tag ;
@@ -721,8 +721,10 @@ void campusSeguro::actualizarVecinos(Posicion p)
             }
           }
         }
+        /*
         itVecinosVec.Avanzar();
     }
+    */
    itVecinos.Avanzar();
  }
 }
