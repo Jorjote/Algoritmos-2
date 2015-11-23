@@ -57,7 +57,7 @@ campusSeguro::campusSeguro(campus c, Dicc<Agente,Posicion> d)
 
         plak = it.SiguienteClave();
         pos = it.SiguienteSignificado();
-        itEqu = equSan.relacionar(plak,0);
+        itEqu = equSan.relacionar(0, plak);
         dataH.pos = pos;
         dataH.Sanciones = 0;
         dataH.hippiesAtrapados = 0;
