@@ -8,6 +8,9 @@ int main()
 
     aed2::Dicc<Agente, Posicion> dick;
     //camp.mostrarCampus(cout);
+    Posicion p0(1,3);
+    camp.AgregarObstaculo(p0);
+    if (camp.Posocupada(p0))camp.mostrarCampus(cout);
 
     aed2::Agente a1(10);
     aed2::Posicion p1(1,1);
@@ -51,6 +54,24 @@ int main()
     //hola.ingresarHippie("hippie1", p8);
     hola.ingresarEstudiante("estudiante3", p8);
     hola.mostrarGrilla(cout);
+    cout << "el mas vigilante " << hola.masVigilante() << endl;
+    cout << "Las sanciones de los agentes :" << endl;
+
+    Conj<Agente>::Iterador itA = hola.agentes();
+
+    while (itA.HaySiguiente())
+    {
+        Posicion P = hola.posAgente(itA.Siguiente());
+        P.mostrar(cout);
+        cout << hola.cantSanciones(itA.Siguiente()) << endl;
+        cout << hola.cantHippiesAtrapados(itA.Siguiente()) << endl;
+        itA.Avanzar();
+    }
+
+
+    Posicion p10(1,2);
+    hola.ingresarEstudiante("estudiantes4", p10);
+    hola.mostrarGrilla(cout);
 
     //Conj<Agente> prueba = hola.conMismasSanciones(a4);
     //Conj<Agente>::const_Iterador itM = prueba.CrearIt();
@@ -65,7 +86,7 @@ int main()
     cout << "el mas vigilante " << hola.masVigilante() << endl;
     cout << "Las sanciones de los agentes :" << endl;
 
-    Conj<Agente>::Iterador itA = hola.agentes();
+    itA = hola.agentes();
 
     while (itA.HaySiguiente())
     {

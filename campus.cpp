@@ -148,14 +148,14 @@ return res;
 
 ostream& campus::mostrarCampus(ostream& os)
 {
-    Nat i=0;
-    Nat j=0;
+    Nat i=1;
+    Nat j=1;
    cout << "--comienzo del Stream del campus--"<< endl;
    cout << "campus por posiciones: " << endl;
-   while( j<Alto )
+   while( j<=Alto )
     {
-        i=0;
-        while(i< Ancho)
+        i=1;
+        while(i<= Ancho)
         {
         Posicion aux;//(i,j);
         aux.x = i;
@@ -168,11 +168,11 @@ ostream& campus::mostrarCampus(ostream& os)
     }
 
    cout << "campus por ocupacion: O=ocupado, D=desocupado" << endl;
-   i=0;j=0;
-    while( j<Alto )
+   i=1;j=1;
+    while( j<=Alto )
     {
-        i=0;
-        while(i< Ancho)
+        i=1;
+        while(i<= Ancho)
         {
             Posicion aux;//(i,j);
             aux.x = i;

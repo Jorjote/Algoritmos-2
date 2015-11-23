@@ -31,7 +31,7 @@ campusSeguro::campusSeguro(campus c, Dicc<Agente,Posicion> d)
                 p.x = i;
                 p.y = j;
                 campusSeguro::DatosPos data;  // ESTA VARIABLE NO SE SI VA DENTRO DEL SCOPE DEL WHILE, xq SE BORRA.
-                if( _campus.Posocupada(p))
+                if( camp.Posocupada(p))
                 {
                     data.id = 0;
                     data.tag = "ocupada";
@@ -143,12 +143,19 @@ void campusSeguro::ingresarHippie(Nombre h,Posicion p)
         grilla.Obtener(p).id  = 1  ;
         grilla.Obtener(p).tag  = h  ;
         grilla.Obtener(p).placa  =  0 ;
+        actualizarVecinos(p);
         //grilla.Obtener(p).datosAgente  = grilla.Obtener(p).datosAgente;// esta demas, pero lo pongo asi es mas claro.
     }
     else
     {
         if( posCapturable(p,_campus) )
         {
+            /// agrego los datos del hippie a la grilla
+            grilla.Obtener(p).id  = 2  ;
+            //grilla.Obtener(p).tag  = h  ;
+            grilla.Obtener(p).placa  =  0 ;
+            /// ahora si actualizo los vecinos y despues seteo como libre en la grilla.
+            actualizarVecinos(p);
             grilla.Obtener(p).id  = 4  ;
         }
         else
@@ -157,11 +164,10 @@ void campusSeguro::ingresarHippie(Nombre h,Posicion p)
             grilla.Obtener(p).id  = 2  ;
             grilla.Obtener(p).tag  = h  ;
             grilla.Obtener(p).placa  =  0 ;
+            actualizarVecinos(p);
             //grilla.Obtener(p).datosAgente  = grilla.Obtener(p).datosAgente;// esta demas, pero lo pongo asi es mas claro.
         }
     }
-
-    actualizarVecinos(p);
 }
 
 
@@ -494,7 +500,7 @@ bool campusSeguro::posCapturable(Posicion p,campus c)
 
 bool campusSeguro::esHippie(Posicion p)
 {
-    return (grilla.Obtener(p)).id==2;
+    return (grilla.Obtener(p)).id == 2;
 }
 
 
@@ -575,13 +581,15 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
 
                     if(cantAtrapadosVec > _masVigilante.cantAtrapados  )
                     {
-                        (_masVigilante).agente = datosVec.SiguienteClave();
+                        //(_masVigilante).agente = datosVec.SiguienteClave();
+                        _masVigilante.agente = ac;
                         (_masVigilante).cantAtrapados = cantAtrapadosVec;
                     }
 
                     if( (cantAtrapadosVec == (_masVigilante).cantAtrapados) && ( datosVec.SiguienteClave()< (_masVigilante).agente) )
                     {
-                        (_masVigilante).agente = datosVec.SiguienteClave();
+                        //(_masVigilante).agente = datosVec.SiguienteClave();
+                        _masVigilante.agente = ac;
                         (_masVigilante).cantAtrapados = cantAtrapadosVec;
                     }
                 }
@@ -598,7 +606,7 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
                     KSanciones.buffer = false;
                 }
 
-            itVec.Avanzar();
+                itVec.Avanzar();
             }
         }
         it.Avanzar();
