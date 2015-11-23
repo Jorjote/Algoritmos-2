@@ -1,0 +1,8 @@
+SinDriver/bin/Debug/SinDriver.exe
+SinDriver/main.cpp
+SinDriver/obj/Debug/campusSeguro.o
+SinDriver/obj/Debug/campus.o
+SinDriver/obj/Debug/trie.o
+*.depend
+SinDriver/SinDriver.cbp
+*.o
