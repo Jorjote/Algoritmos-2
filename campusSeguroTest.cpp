@@ -33,12 +33,13 @@ int main()
 
     campusSeguro hola(camp, dick);
 
-    //hola.mostrarGrilla(cout);
+    //
 
     aed2::Posicion p3(2,1);
-    //hola.ingresarHippie("hippie1", p3);
-    hola.ingresarEstudiante("estudiante1", p3);
-/*
+    hola.ingresarHippie("hippie1", p3);
+    //hola.mostrarGrilla(cout);
+    //hola.ingresarEstudiante("estudiante1", p3);
+
     hola.mostrarGrilla(cout);
 
     Posicion p6(3,2);
@@ -71,6 +72,7 @@ int main()
         Posicion P = hola.posAgente(itA.Siguiente());
         P.mostrar(cout);
         cout << hola.cantSanciones(itA.Siguiente()) << endl;
+        cout << hola.cantHippiesAtrapados(itA.Siguiente()) << endl;
         itA.Avanzar();
     }
 

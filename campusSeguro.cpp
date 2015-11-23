@@ -20,11 +20,11 @@ campusSeguro::campusSeguro(campus c, Dicc<Agente,Posicion> d)
     tup.datosAgente = itHashVacio;
     ConjsEqu<Agente>  equSan; // creo un EqusEqu vacio y lo guardo en la variable equSan.
     campusSeguro::DatosSanciones KSan;
-    Nat i = 0;
-    Nat j = 0;
-      while( i < c.Filas() )
+    Nat i = 1;
+    Nat j = 1;
+      while( i <= c.Filas() )
       {
-            while( j< c.Columnas())
+            while( j <= c.Columnas())
             {
               //Posicion pos(i,j); // creo una posicion (i,j).
                 Posicion p;
@@ -567,8 +567,11 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
                 if( esAgente(posActual) && esHippie(vecActual) )
                 {
                     diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(posActual).datosAgente;
-                    datosVec.SiguienteSignificado().hippiesAtrapados++;
-                    Nat cantAtrapadosVec = datosVec.SiguienteSignificado().hippiesAtrapados;
+                    //datosVec.SiguienteSignificado().hippiesAtrapados++;
+                    //Nat cantAtrapadosVec = datosVec.SiguienteSignificado().hippiesAtrapados;
+                    Agente ac = grilla.Obtener(posActual).placa;
+                    datosAgentes.Obtener(ac).hippiesAtrapados++;
+                    Nat cantAtrapadosVec = datosAgentes.Obtener(ac).hippiesAtrapados;
 
                     if(cantAtrapadosVec > _masVigilante.cantAtrapados  )
                     {
@@ -590,8 +593,8 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
                     //grilla.Obtener(posActual).datosAgente.SiguienteSignificado().Sanciones++;
                     Agente ac = grilla.Obtener(posActual).placa;
                     datosAgentes.Obtener(ac).Sanciones++;
-                    Nat vecSancionesActual = datosAgentes.Obtener(ac).Sanciones;
-                    datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
+                    //Nat vecSancionesActual = datosAgentes.Obtener(ac).Sanciones;
+                    //datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
                     KSanciones.buffer = false;
                 }
 
@@ -638,11 +641,18 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c)
 
                 if( esAgente(vecActual) && esEstudiante(posActual) )
                 {
-                    diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(vecActual).datosAgente;
-                    datosVec.SiguienteSignificado().Sanciones++;
-                    Nat vecSancionesActual = datosVec.SiguienteSignificado().Sanciones;
-                    datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
-                    (KSanciones).buffer =false;
+                    //diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(vecActual).datosAgente;
+                    //datosVec.SiguienteSignificado().Sanciones++;
+                    //Nat vecSancionesActual = datosVec.SiguienteSignificado().Sanciones;
+
+                    Agente ac = grilla.Obtener(posActual).placa;
+                    datosAgentes.Obtener(ac).Sanciones ++;
+
+                    //Nat vecSancionesActual = datosAgentes.Obtener(ac).Sanciones;
+                    //datosAgentes.Obtener(ac).claseConMismasSanciones.ItActualizarElem(vecSancionesActual);
+
+                    //datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
+                    (KSanciones).buffer = false;
                 }
 
             itVec.Avanzar();
