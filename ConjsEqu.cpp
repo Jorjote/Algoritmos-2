@@ -192,7 +192,7 @@
     template <typename T>
     void ConjsEqu<T>::Iterador::ItActualizarElem(Nat n) // Ok
     {
-        assert(this->HaySiguiente() && n> valorActual); // sino hay siguiente no puedo actualizar el siguiente.
+        assert(this->HaySiguiente() ); // sino hay siguiente no puedo actualizar el siguiente.
         T elem = this->itElem.Siguiente(); //  Conj<T>::Iterador , siempre que haya siguiente hay siguiente en el campo itElem.
         this->itElem.EliminarSiguiente(); // elimino el elemento siguiente del iterador, para luego meterlo en la clase n.
         if( !this->itElem.HaySiguiente() ) // si no hay elto siguiente en el cjto entonces elimino la clase.
