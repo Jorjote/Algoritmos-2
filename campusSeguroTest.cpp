@@ -36,28 +36,31 @@ int main()
     //hola.mostrarGrilla(cout);
 
     aed2::Posicion p3(2,1);
+    //hola.ingresarHippie("hippie1", p3);
     hola.ingresarEstudiante("estudiante1", p3);
+/*
     hola.mostrarGrilla(cout);
 
     Posicion p6(3,2);
+    //hola.ingresarHippie("hippie2", p6);
     hola.ingresarEstudiante("estudiante2", p6);
 
     hola.mostrarGrilla(cout);
     Posicion p8(4,2);
-    hola.ingresarHippie("hippie1", p8);
-    //hola.ingresarEstudiante("estudiante3", p8);
+    //hola.ingresarHippie("hippie1", p8);
+    hola.ingresarEstudiante("estudiante3", p8);
     hola.mostrarGrilla(cout);
 
     //Conj<Agente> prueba = hola.conMismasSanciones(a4);
     //Conj<Agente>::const_Iterador itM = prueba.CrearIt();
-
-    //while(itM.HaySiguiente())
-    //{
-        //Agente a = itM.Siguiente();
-        //cout << a << endl;
-        //itM.Avanzar();
-    //}
-
+/*
+    while(itM.HaySiguiente())
+    {
+        Agente a = itM.Siguiente();
+        cout << a << endl;
+        itM.Avanzar();
+    }
+*/
     cout << "el mas vigilante " << hola.masVigilante() << endl;
     cout << "Las sanciones de los agentes :" << endl;
 

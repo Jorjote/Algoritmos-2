@@ -585,13 +585,13 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
 
                 if( esAgente(posActual) && esEstudiante(vecActual) )
                 {
-                    //diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(posActual).datosAgente;
+                    diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(posActual).datosAgente;
                     //datosVec.SiguienteSignificado().Sanciones++;
                     //grilla.Obtener(posActual).datosAgente.SiguienteSignificado().Sanciones++;
-                    Agente ac= grilla.Obtener(posActual).placa;
-                    datosAgentes.Obtener(ac).Sanciones ++;
-                    //Nat vecSancionesActual = datosVec.SiguienteSignificado().Sanciones;
-                    //datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
+                    Agente ac = grilla.Obtener(posActual).placa;
+                    datosAgentes.Obtener(ac).Sanciones++;
+                    Nat vecSancionesActual = datosAgentes.Obtener(ac).Sanciones;
+                    datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
                     KSanciones.buffer = false;
                 }
 
