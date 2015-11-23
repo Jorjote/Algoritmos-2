@@ -269,7 +269,7 @@ template <typename A,typename B>
 diccHash<A,B>::Iterador::Iterador()// iterador por defecto.
 {
       Arreglo<Lista< typename diccHash<A,B>::tupla > > arrVacio;
-      (*arr) = arrVacio;
+      arr = &arrVacio;
       this->posicionActual = 0;
        Lista<  diccHash<A,B>::tupla > ListaVaciaDeHash;
        typename Lista<  diccHash<A,B>::tupla >::Iterador itListaVaciaDeHash = ListaVaciaDeHash.CrearIt();
