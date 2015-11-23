@@ -38,6 +38,7 @@ diccMatriz<T>::~diccMatriz()   //destructor
 template<typename T>
 void diccMatriz<T>::Definir(Posicion P, const T& elem)
 {
+    assert(enRango(P));
     Matriz[P.Y()-1].Definir(P.X()-1, elem);
 }
 
