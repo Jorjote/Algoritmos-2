@@ -2,7 +2,7 @@
 #define MATRIZ_H_INCLUDED
 #include "Modulos Basicos/aed2.h"
 #include "assert.h"
-#include "tipos.h"
+#include "Tipos.h"
 #include <iostream>
 #include <fstream>
 #include <ostream>

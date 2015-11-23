@@ -19,6 +19,7 @@
         template <typename T>
         typename ConjsEqu<T>::Iterador ConjsEqu<T>::relacionar(Nat n, T elem)// creo que OK.
         {
+            //assert(elementos.Primero().id <= n);
             typename ConjsEqu<T>::Iterador it;
             if(this->valoresDefinidos().EsVacio()){
                 Conj<T> nuevo;
@@ -29,7 +30,14 @@
 
             }
             else{
-                this->elementos.Primero().clase.AgregarRapido(elem);
+                if (elementos.Primero().id == 0) this->elementos.Primero().clase.AgregarRapido(elem);
+                else{
+                    Conj<T> nuvo;
+                    nuvo.AgregarRapido(elem);
+                    dato datoNuvo(nuvo, 0);
+                    elementos.AgregarAdelante(datoNuvo);
+
+                }
                 it =  this->CrearIt();
                 while(it.elementoActual() != elem){
                     it.Avanzar();
@@ -192,7 +200,9 @@
     template <typename T>
     void ConjsEqu<T>::Iterador::ItActualizarElem(Nat n) // Ok
     {
-        assert(this->HaySiguiente() ); // sino hay siguiente no puedo actualizar el siguiente.
+        assert(this->HaySiguiente() && valorActual() <= n); // sino hay siguiente no puedo actualizar el siguiente.
+        if (valorActual() == n) return;
+
         T elem = this->itElem.Siguiente(); //  Conj<T>::Iterador , siempre que haya siguiente hay siguiente en el campo itElem.
         this->itElem.EliminarSiguiente(); // elimino el elemento siguiente del iterador, para luego meterlo en la clase n.
         if( !this->itElem.HaySiguiente() ) // si no hay elto siguiente en el cjto entonces elimino la clase.
