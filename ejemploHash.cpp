@@ -51,7 +51,14 @@ cout << "esta definida la clave4? :" << diccCardinal.EstaDefinida(claven4) << en
 diccCardinal.Obtener(claven4);
 
 
-diccHash<Nat,Conj<String> >::Iterador it;// test para ver si funciona bien el constructor por defecto del iterador.
+diccHash<Nat,Conj<String> >::Iterador it = diccCardinal.CrearIt(claven2);// test para ver si funciona bien el constructor por defecto del iterador.
+cout << diccCardinal.Obtener(claven2)<<endl;
+diccCardinal.Obtener(claven2).Agregar("matorrales");
+cout << diccCardinal.Obtener(claven2)<<endl;
+cout << it.SiguienteSignificado()<<endl;
+it.SiguienteSignificado().Agregar("malabunta");
+cout << it.SiguienteSignificado()<<endl;
+cout << diccCardinal.Obtener(claven2)<<endl;
 
   return 0;
 }
