@@ -565,6 +565,57 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
         posActual = it.Siguiente();
         if( posCapturable(este,_campus) )
         {
+            Posicion vecActual = este;
+            if( esAgente(posActual) && esHippie(vecActual) )
+            {
+                diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(posActual).datosAgente;
+                //datosVec.SiguienteSignificado().hippiesAtrapados++;
+                //Nat cantAtrapadosVec = datosVec.SiguienteSignificado().hippiesAtrapados;
+                Agente ac = grilla.Obtener(posActual).placa;
+                datosAgentes.Obtener(ac).hippiesAtrapados++;
+                Nat cantAtrapadosVec = datosAgentes.Obtener(ac).hippiesAtrapados;
+
+                if(cantAtrapadosVec > _masVigilante.cantAtrapados  )
+                {
+                    //(_masVigilante).agente = datosVec.SiguienteClave();
+                    _masVigilante.agente = ac;
+                    (_masVigilante).cantAtrapados = cantAtrapadosVec;
+                }
+
+                if( (cantAtrapadosVec == (_masVigilante).cantAtrapados) && ( datosVec.SiguienteClave()< (_masVigilante).agente) )
+                {
+                    //(_masVigilante).agente = datosVec.SiguienteClave();
+                    _masVigilante.agente = ac;
+                    (_masVigilante).cantAtrapados = cantAtrapadosVec;
+                }
+            }
+
+            if( esAgente(posActual) && esEstudiante(vecActual) )
+            {
+                diccHash<Agente,Datos>::Iterador datosVec = grilla.Obtener(posActual).datosAgente;
+                //datosVec.SiguienteSignificado().Sanciones++;
+                //grilla.Obtener(posActual).datosAgente.SiguienteSignificado().Sanciones++;
+                Agente ac = grilla.Obtener(posActual).placa;
+                datosAgentes.Obtener(ac).Sanciones++;
+                //Nat vecSancionesActual = datosAgentes.Obtener(ac).Sanciones;
+                //datosVec.SiguienteSignificado().claseConMismasSanciones.ItActualizarElem(vecSancionesActual);  // CREOOO QUE ES DE CONJEQU
+                KSanciones.buffer = false;
+            }
+        }
+        it.Avanzar();
+    }
+}
+
+/*
+void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
+{
+    Posicion posActual;
+    Conj<Posicion>::Iterador it = c.CrearIt();
+    while( it.HaySiguiente() )
+    {
+        posActual = it.Siguiente();
+        if( posCapturable(este,_campus) )
+        {
             Conj<Posicion> vecinosDePosActual = _campus.Vecinos(posActual);
             Conj<Posicion>::Iterador itVec = vecinosDePosActual.CrearIt();
             while( itVec.HaySiguiente())
@@ -612,7 +663,7 @@ void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c, Posicion este)
         it.Avanzar();
     }
 }
-
+*/
 
 void campusSeguro::actualizarDatosAgentes(Conj<Posicion> c)
 {

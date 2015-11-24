@@ -1,8 +1,10 @@
 #include <iostream>
 #include "campusSeguro.h"
+#include "mini_test.h"
 using namespace std;
 
-int main()
+
+void test_Ingresos()
 {
     campus camp(5,5);
 
@@ -70,19 +72,10 @@ int main()
 
 
     Posicion p10(1,2);
+    cout << "ingreso el estudiante a la pos " << p10.X() << "," << p10.Y() << endl;
     hola.ingresarEstudiante("estudiantes4", p10);
     hola.mostrarGrilla(cout);
 
-    //Conj<Agente> prueba = hola.conMismasSanciones(a4);
-    //Conj<Agente>::const_Iterador itM = prueba.CrearIt();
-/*
-    while(itM.HaySiguiente())
-    {
-        Agente a = itM.Siguiente();
-        cout << a << endl;
-        itM.Avanzar();
-    }
-*/
     cout << "el mas vigilante " << hola.masVigilante() << endl;
     cout << "Las sanciones de los agentes :" << endl;
 
@@ -97,6 +90,31 @@ int main()
         itA.Avanzar();
     }
 
+    cout << "ingreso el estudiante a la pos " << p3.X() << "," << p3.Y() << endl;
+    hola.ingresarEstudiante("estudiantes5", p3);
+    hola.mostrarGrilla(cout);
+
+    cout << "el mas vigilante " << hola.masVigilante() << endl;
+    cout << "Las sanciones de los agentes :" << endl;
+
+    itA = hola.agentes();
+
+    while (itA.HaySiguiente())
+    {
+        Posicion P = hola.posAgente(itA.Siguiente());
+        P.mostrar(cout);
+        cout << hola.cantSanciones(itA.Siguiente()) << endl;
+        cout << hola.cantHippiesAtrapados(itA.Siguiente()) << endl;
+        itA.Avanzar();
+    }
+
+        // HAY QUE MIRAR LAS SANCIONES A VER QUE ONDIS.
+
+}
+
+int main()
+{
+    test_Ingresos();
         // HAY QUE MIRAR LAS SANCIONES A VER QUE ONDIS.
     return 0;
 
