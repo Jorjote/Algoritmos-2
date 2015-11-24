@@ -112,9 +112,85 @@ void test_Ingresos()
 
 }
 
+void test_Ingresos_HippiesYEstudiantes()
+{
+
+    campus camp(5,5);
+    Dicc<Agente, Posicion> dick;
+    Posicion p0(1,3);
+    camp.AgregarObstaculo(p0);
+    Agente a1(10);
+    Posicion p1(5,5);
+    dick.Definir(a1, p1);
+    campusSeguro hola(camp, dick);
+
+    Posicion p2(1,1);
+    Posicion p3(2,1);
+
+    hola.ingresarHippie("hippie1", p2);
+    hola.ingresarHippie("hippie2", p3);
+    hola.mostrarGrilla(cout);
+    Posicion p4(1,2);
+    hola.ingresarEstudiante("estudiante1", p4);
+    hola.mostrarGrilla(cout);
+
+    cout << "cantidad de hippies = " << hola.cantHippies() << endl;
+    cout << "cantidad de estudiantes = " << hola.cantEstudiantes() << endl;
+
+    Posicion p5(2,3);
+    Posicion p6(3,4);
+    Posicion p7(1,4);
+    Posicion p8(2,5);
+    Posicion p9(3,1);
+    Posicion p10(2,1);
+    hola.ingresarEstudiante("estudiante2", p9);
+
+    hola.moverEstudiante("estudiante2", abajo);
+    hola.mostrarGrilla(cout);
+    hola.ingresarHippie("hippie3", p9);
+    hola.mostrarGrilla(cout);
+    cout << "cantidad de hippies = " << hola.cantHippies() << endl;
+    cout << "cantidad de estudiantes = " << hola.cantEstudiantes() << endl;
+    hola.moverHippie("hippie2");
+    hola.mostrarGrilla(cout);
+
+    DiccPalabra<Posicion>::itDiccP itH = hola.Hippies();
+    while(itH.HaySiguiente())
+    {
+        Posicion p = itH.SiguienteSignificado();
+        cout << "estos son las posiciones de los hippies " << p.X() << "," << p.Y()  << endl;
+        itH.Avanzar();
+    }
+
+    DiccPalabra<Posicion>::itDiccP itE = hola.estudiantes();
+    while(itE.HaySiguiente())
+    {
+        Posicion p = itE.SiguienteSignificado();
+        cout << "estos son las posiciones de los estudiantes " << p.X() << "," << p.Y()  << endl;
+        itE.Avanzar();
+    }
+    cout << "cantidad de hippies = " << hola.cantHippies() << endl;
+    cout << "cantidad de estudiantes = " << hola.cantEstudiantes() << endl;
+
+}
+
+void test_MovimientoAgentes()
+{
+    campus camp(5,5);
+    Dicc<Agente, Posicion> dick;
+    Posicion p0(1,3);
+    camp.AgregarObstaculo(p0);
+    Agente a1(10);
+    Posicion p1(5,5);
+    dick.Definir(a1, p1);
+    campusSeguro hola(camp, dick);
+}
+
 int main()
 {
     test_Ingresos();
+    test_Ingresos_HippiesYEstudiantes();
+    test_MovimientoAgentes();
         // HAY QUE MIRAR LAS SANCIONES A VER QUE ONDIS.
     return 0;
 

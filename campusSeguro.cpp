@@ -178,11 +178,11 @@ void campusSeguro::moverEstudiante(Nombre e,Direccion dir)
     {
         _estudiantes.Borrar(e);
         grilla.Obtener(posActual ).id = 4;
-        grilla.Obtener(posActual ).tag = e;
+        grilla.Obtener(posActual ).tag = "libre";
         grilla.Obtener(posActual ).placa = 0;
-        diccHash<Agente,Datos> d(0);// dicchash vacio.
-        diccHash<Agente,Datos>::Iterador itNulo = d.CrearIt();// creo un iterador vacio.
-        grilla.Obtener(posActual).datosAgente = itNulo;
+        //diccHash<Agente,Datos> d(0);// dicchash vacio.
+        //diccHash<Agente,Datos>::Iterador itNulo = d.CrearIt();// creo un iterador vacio.
+        //grilla.Obtener(posActual).datosAgente = itNulo;
     }
     else
     {
@@ -190,11 +190,11 @@ void campusSeguro::moverEstudiante(Nombre e,Direccion dir)
         if(!(posActual==nuevaPos))
         {
           grilla.Obtener( posActual ).id  = 4;
-          grilla.Obtener( posActual ).tag  = e;
+          grilla.Obtener( posActual ).tag  = "libre";
           grilla.Obtener( posActual ).placa  = 0;
-          diccHash<Agente,Datos> d(0);// dicchash vacio.
-          diccHash<Agente,Datos>::Iterador itNulo = d.CrearIt();// creo un iterador vacio.
-          grilla.Obtener(posActual).datosAgente = itNulo;
+          //diccHash<Agente,Datos> d(0);// dicchash vacio.
+          //diccHash<Agente,Datos>::Iterador itNulo = d.CrearIt();// creo un iterador vacio.
+          //grilla.Obtener(posActual).datosAgente = itNulo;
 
             if( posConvertibleAHippie(nuevaPos,_campus) )
             {
@@ -202,24 +202,57 @@ void campusSeguro::moverEstudiante(Nombre e,Direccion dir)
                 grilla.Obtener( nuevaPos ).id = 2;
                 grilla.Obtener( nuevaPos ).tag  = e;
                 grilla.Obtener( nuevaPos ).placa  = 0;
-                grilla.Obtener( nuevaPos ).datosAgente  = grilla.Obtener( nuevaPos ).datosAgente;
+                _estudiantes.Borrar(e);
+                //grilla.Obtener( nuevaPos ).datosAgente  = grilla.Obtener( nuevaPos ).datosAgente;
             }
             else
             {
+                _estudiantes.Borrar(e);
                 _estudiantes.Definir(e,nuevaPos);
                 grilla.Obtener( nuevaPos ).id = 1;
                 grilla.Obtener( nuevaPos ).tag  = e;
                 grilla.Obtener( nuevaPos ).placa  = 0;
-                grilla.Obtener( nuevaPos ).datosAgente  = grilla.Obtener( nuevaPos ).datosAgente;
+                //grilla.Obtener( nuevaPos ).datosAgente  = grilla.Obtener( nuevaPos ).datosAgente;
             }
 
+        actualizarEstYHippie(_campus.Vecinos(nuevaPos));
         actualizarVecinos(nuevaPos);
+
         }
     }
 
 }
 
+void campusSeguro::moverHippie(Nombre h)
+{
+    Posicion posActual = _hippies.Obtener(h);
+    DiccPalabra<Posicion>::itDiccP itPos = _estudiantes.Claves();
+    Posicion nuevaPos = proxPosicion(posActual, itPos );
 
+    if(!(posActual == nuevaPos))
+    {
+        grilla.Obtener(posActual).id = 4;
+        grilla.Obtener(posActual).tag = "libre";
+        grilla.Obtener(posActual).placa = 0;
+        //ingresarHippie(h, nuevaPos);
+
+        //diccHash<Agente,Datos> d(0);// dicchash vacio.
+        //diccHash<Agente,Datos>::Iterador itNulo = d.CrearIt();// creo un iterador vacio.
+        //grilla.Obtener(posActual).datosAgente = itNulo;
+
+        _hippies.Borrar(h);
+        _hippies.Definir(h,nuevaPos);
+        grilla.Obtener(nuevaPos).id = 2;
+        grilla.Obtener(nuevaPos).tag = h;
+        grilla.Obtener(nuevaPos).placa = 0;
+        //grilla.Obtener(nuevaPos).datosAgente = grilla.Obtener(nuevaPos).datosAgente;
+        actualizarEstYHippie(_campus.Vecinos(nuevaPos));
+        actualizarVecinos(nuevaPos);
+    }
+}// fin funcion
+
+
+/*
 void campusSeguro::moverHippie(Nombre h)
 {
   Posicion posActual = _hippies.Obtener(h);
@@ -229,7 +262,7 @@ void campusSeguro::moverHippie(Nombre h)
   {
     grilla.Obtener(posActual).id = 4;
     grilla.Obtener(posActual).tag = h;
-    grilla.Obtener(posActual).placa = -1;
+    grilla.Obtener(posActual).placa = 0;
     diccHash<Agente,Datos> d(0);// dicchash vacio.
     diccHash<Agente,Datos>::Iterador itNulo = d.CrearIt();// creo un iterador vacio.
     grilla.Obtener(posActual).datosAgente = itNulo;
@@ -240,25 +273,24 @@ void campusSeguro::moverHippie(Nombre h)
         grilla.Obtener(nuevaPos).tag = h;
         grilla.Obtener(nuevaPos).placa = 0;
         grilla.Obtener(nuevaPos).datosAgente = grilla.Obtener(nuevaPos).datosAgente;
+        actualizarVecinos(nuevaPos);
       }
       else
       {
+        _hippies.Definir(h,nuevaPos);
+        grilla.Obtener(nuevaPos).id = 2;
+        grilla.Obtener(nuevaPos).tag = h;
+        actualizarVecinos(nuevaPos);
+
         if( posCapturable(nuevaPos,_campus) )
         {
-          grilla.Obtener(nuevaPos).id = 4;
-        }
-        else
-        {
-           _hippies.Definir(h,nuevaPos);
-           grilla.Obtener(nuevaPos).id = 2;
-           grilla.Obtener(nuevaPos).tag = h;
+            grilla.Obtener(nuevaPos).id = 4;
         }
       }
-      actualizarVecinos(nuevaPos);
   }// fin 1er If
 }// fin funcion
 
-
+*/
 void campusSeguro::moverAgente(Agente a)
 {
     Posicion posActual = posAgente(a);
@@ -833,8 +865,9 @@ void campusSeguro::actualizarEstYHippie(Conj<Posicion> c)
             }
         }
 
+        it.Avanzar();
     }
-     it.Avanzar();
+
 }
 
 
@@ -858,7 +891,7 @@ while( it.HaySiguiente() )
 Posicion campusSeguro::proxPosicion(Posicion p,DiccPalabra<Posicion>::itDiccP itPos)
 {
     Posicion posMasCerca=itPos.SiguienteSignificado();
-    Nat distActual= _campus.Distancia(p,posMasCerca);
+    Nat distActual = _campus.Distancia(p,posMasCerca);
     while( itPos.HaySiguiente() )
     {
         if( _campus.Distancia(p,itPos.SiguienteSignificado()) < distActual )
@@ -868,7 +901,8 @@ Posicion campusSeguro::proxPosicion(Posicion p,DiccPalabra<Posicion>::itDiccP it
         }
     itPos.Avanzar();
     }
-    Conj<Posicion>::Iterador itVecinos = (_campus.Vecinos(p)).CrearIt();
+    Conj<Posicion> vecinos = _campus.Vecinos(p);
+    Conj<Posicion>::Iterador itVecinos = vecinos.CrearIt();
 
     Posicion sigPos = p;
     while( itVecinos.HaySiguiente() )

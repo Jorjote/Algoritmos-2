@@ -20,11 +20,13 @@ namespace aed2{
             os << "(" << x << "," << y << ")";
             return os;
         }
+
     };
 	typedef enum {izq,der,arriba,abajo} Direccion;
 	typedef Nat Agente;
 	typedef String Nombre;
 
 } // namespace aed2
+
 
 #endif // AED2_TIPOS_H_
